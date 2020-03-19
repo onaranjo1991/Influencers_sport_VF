@@ -1,0 +1,23 @@
+---
+title: "Análisis sentimental"
+author: "Oscar Naranjo"
+date: "17/3/2020"
+output: pdf_document
+---
+
+#**1.tokenize data**
+##*extraigo y unnest la data que voy a usar en el análisis sentimental*
+```{r}
+sentimiento<-data_df%>%
+unnest_tokens(word, caption)
+```
+
+#**2.Cargo diccionario-sentimental**
+##*2.a.cargo diccionario-sentimental al proyecto (NRC_WORDS_with_sentiment_usar_este)*
+##*2.b.cargo diccionario-sentimental al global environment*
+```{r}
+NRC_es <- read.csv("/cloud/project/NRC WORDS with sentiment_usar_este.csv", row.names=NULL, sep=";", stringsAsFactors=FALSE)
+```
+
+#*3.
+
