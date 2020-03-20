@@ -21,12 +21,23 @@ NRC_es <- read.csv("/cloud/project/NRC WORDS with sentiment_usar_este.csv", row.
 
 #**3.Cotejar NRC_es con sentimiento**
 ##*inner join de sentimiento con NRC_es para que se relacione el diccionario-sentimental con data de sentimiento*
+###*count de sentiment y word*
+##*3.a.reviso las palabras y el sentimiento que tienen asociado, para ver si debo hacer algun cambio en el diccionario*
+###*en este caso no debi hacer ningún cambio*
+```{r}
+scores_chart<-sentimiento%>%
+  inner_join(NRC_es, by=c("word"="word"))%>%
+  filter(!grepl("positivo|negativo", sentiment))%>%
+  count(sentiment, word)
+```
+
+#**4.Cotejar NRC_es con sentimiento**
+###*count de sentiment*
+##*esta es la versión final a usar despues de la corrección del paso 3*
 ```{r}
 scores_chart<-sentimiento%>%
   inner_join(NRC_es, by=c("word"="word"))%>%
   filter(!grepl("positivo|negativo", sentiment))%>%
   count(sentiment)
 ```
-
-#**4.   **
 
