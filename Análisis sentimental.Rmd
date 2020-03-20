@@ -19,5 +19,14 @@ unnest_tokens(word, caption)
 NRC_es <- read.csv("/cloud/project/NRC WORDS with sentiment_usar_este.csv", row.names=NULL, sep=";", stringsAsFactors=FALSE)
 ```
 
-#*3.
+#**3.Cotejar NRC_es con sentimiento**
+##*inner join de sentimiento con NRC_es para que se relacione el diccionario-sentimental con data de sentimiento*
+```{r}
+scores_chart<-sentimiento%>%
+  inner_join(NRC_es, by=c("word"="word"))%>%
+  filter(!grepl("positivo|negativo", sentiment))%>%
+  count(sentiment)
+```
+
+#**4.   **
 
