@@ -41,3 +41,52 @@ scores_chart<-sentimiento%>%
   count(sentiment)
 ```
 
+#**5.Genero chart radar**
+##*este chart radar plotea los sentimientos*
+```{r}
+chartJSRadar(scores_chart)
+```
+
+#**6.genero scores_cloud**
+##*esto para generar una nube de palabras por sentimiento*
+```{r}
+scores_cloud<-sentimiento%>%
+  inner_join(NRC_es, by=c("word"="word"))%>%
+  filter(!grepl("positivo|negativo", sentiment))%>%
+  count(word, sentiment)%>%
+  spread(sentiment, n, fill=0)%>%
+  data.frame(row.names = "word")
+```
+
+##*6.a.Ploteo nube*
+```{r}
+comparison.cloud(scores_cloud, max.words=60, title.size=1, scale = c(1,1), random.order = FALSE)
+```
+
+#**7.Genero frecuencia**
+##*creo scores_fq para poder plotear frecuencia*
+```{r}
+scores_fq<-sentimiento%>%
+  inner_join(NRC_es, by=c("word"="word"))%>%
+  filter(grepl("positivo|negativo", sentiment))%>%
+  count(word, sentiment)%>%
+  spread(sentiment, n, fill=0)%>%
+  mutate(polarity=positivo-negativo)%>%
+  mutate(pos_or_neg=ifelse(polarity>0 , "positivo", "negativo"))
+```
+
+##*7.a.Ploteo frecuencia*
+```{r}
+ggplot(scores_fq, aes(reorder(word, polarity), polarity, fill=pos_or_neg))+
+  geom_col()+
+  ggtitle("scores_fq")+
+  theme(axis.text.x=element_text(angle=90, vjust = -0,1))
+```
+
+##*7.b.si deseo plotear la frecuencia de uno de los sentimientos para ver las palabras que más se repiten en cada sentimiento*
+###*aplico barplot, seleccionado en height la columna o sentimiento que deseo ver y names lo hago manual, observando scores_cloud*
+```{r}
+barplot(height=sort(scores_cloud$alegria, decreasing = TRUE)[1:2], names=c("mejor","felicidad")[1:2], las=2, ylim=c(0, 400))
+```
+
+#*8.
