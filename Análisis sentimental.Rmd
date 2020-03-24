@@ -88,5 +88,3 @@ ggplot(scores_fq, aes(reorder(word, polarity), polarity, fill=pos_or_neg))+
 ```{r}
 barplot(height=sort(scores_cloud$alegria, decreasing = TRUE)[1:2], names=c("mejor","felicidad")[1:2], las=2, ylim=c(0, 400))
 ```
-
-#*8.
