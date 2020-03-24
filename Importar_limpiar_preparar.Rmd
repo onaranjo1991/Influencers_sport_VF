@@ -134,6 +134,12 @@ data_utk_complete=gsub("á","a",data_utk_complete)
 data_utk_complete<-str_replace_na(data_utk_complete, replacement = "ND")
 ```
 
+##**Tip: si deseo quitar palabras, aplico**
+
+data_utk_complete_v2<-data_utk_complete %>%
+   removeWords(c("ND", "mejorar", "ninguno"))
+
+
 #**15.Devolver palabras completadas a la tabla**
 ```{r}
 data_utk$token<-data_utk_complete

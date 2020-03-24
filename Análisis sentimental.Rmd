@@ -84,7 +84,7 @@ ggplot(scores_fq, aes(reorder(word, polarity), polarity, fill=pos_or_neg))+
 ```
 
 ##*7.b.si deseo plotear la frecuencia de uno de los sentimientos para ver las palabras que más se repiten en cada sentimiento*
-###*aplico barplot, seleccionado en height la columna o sentimiento que deseo ver y names lo hago manual, observando scores_cloud*
+###*aplico barplot, seleccionado en height la columna o sentimiento que deseo ver y names lo hago manual, observando scores_cloud, ylab="Frecuencia"para poner nombre a eje y y lo mismo con xlab*
 ```{r}
-barplot(height=sort(scores_cloud$alegria, decreasing = TRUE)[1:2], names=c("mejor","felicidad")[1:2], las=2, ylim=c(0, 400))
+barplot(height=sort(scores_cloud$alegria, decreasing = TRUE)[1:5], names=c("mejor","felicidad", "bueno", "alegría", "pasión")[1:5], las=2, ylim=c(0, 400), main = "5 Palabras más repetidas - Alegría", col="yellow")
 ```
