@@ -6,6 +6,9 @@ output: pdf_document
 ---
 #**Importar, limpiar data y prepara data para su uso**
 
+#**para que github funcione debo poner en terminal**
+##*git config --global user.email "naranjodelg@gmail.com" y git config --global user.namne "onaranjo1991"*
+
 # 1.Importar la data
 ```{r}
 Data_scr <- read.csv("/cloud/project/Scrapped data Final.csv", sep=";", stringsAsFactors=FALSE)
