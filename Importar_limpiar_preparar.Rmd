@@ -193,3 +193,4 @@ filter_sorpresa<-data_df%>%
 filter_tristeza<-data_df%>%
     select(Usuario, Likes, linea, caption) %>%   
     filter(str_detect(caption, "dolor"))
+    
