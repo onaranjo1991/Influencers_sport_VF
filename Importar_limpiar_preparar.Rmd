@@ -161,3 +161,35 @@ data_df<-data_utk%>%
 #**Comentarios**
 ##*Despues de este proceso, puedo: desarrollar bag of words o analisis sentimental*
 ##*Aplico __str_subset__ si deseo buscar donde hay frases con una palabra exacta, ejemplo: str_subset(data_df$caption, pattern = fixed("mucha"))* 
+##*aplico la siguiente formula para generar nuevo tibble que solo me muestre la data de acuerdo a la palabra por la cual filtro*
+filter_alegria<-data_df%>%
+    select(Usuario, Likes, linea, caption) %>%   
+    filter(str_detect(caption, "mejor"))
+    
+filter_anticipacion<-data_df%>%
+    select(Usuario, Likes, linea, caption) %>%   
+    filter(str_detect(caption, "bueno"))
+
+filter_confianza<-data_df%>%
+    select(Usuario, Likes, linea, caption) %>%   
+    filter(str_detect(caption, "bueno"))
+    
+filter_disgusto<-data_df%>%
+    select(Usuario, Likes, linea, caption) %>%   
+    filter(str_detect(caption, "falta"))
+    
+filter_enfado<-data_df%>%
+    select(Usuario, Likes, linea, caption) %>%   
+    filter(str_detect(caption, "perder"))
+    
+filter_miedo<-data_df%>%
+    select(Usuario, Likes, linea, caption) %>%   
+    filter(str_detect(caption, "falta"))
+    
+filter_sorpresa<-data_df%>%
+    select(Usuario, Likes, linea, caption) %>%   
+    filter(str_detect(caption, "bueno"))
+    
+filter_tristeza<-data_df%>%
+    select(Usuario, Likes, linea, caption) %>%   
+    filter(str_detect(caption, "dolor"))
