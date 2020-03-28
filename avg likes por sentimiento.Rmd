@@ -51,9 +51,12 @@ ftr_alegria_clean$likes<-as.numeric(gsub(",","",ftr_alegria_clean$likes))
 ##*construyo tabla con el average de likes de cada sentimiento*
 ```{r}
 avg_ftr_alegria<-ftr_alegria_clean%>%
-    summarise(avg_likes=mean(likes), var_likes=var(likes), sd_likes=sd(likes), median_likes=median(likes))%>%
+    summarise(likes=mean(likes))%>%
   add_column(sentimiento="alegria")
 ```
+
+#*avg_likes=weighted.mean(likes), var_likes=var(likes), sd_likes=sd(likes), median_likes=median(likes)*
+##*si deseo sacar otros datos estadisticos, aplico eso*
 
 #*anticipación*
 ```{r}
@@ -217,5 +220,36 @@ avg_full<-avg_ftr_alegria%>%
   full_join(avg_ftr_tristeza)
 ```
 
+
+#**5.para graficar avg_full**
+```{r}
+ggplot(avg_full, aes(reorder(x=sentimiento,likes), y=likes))+
+    geom_col()+
+    theme(axis.text.x=element_text(angle=90, vjust = -0,1))+
+    scale_fill_manual(name="frecuencia")+
+    labs(x="sentimiento", title="Likes por sentimiento")
+```
+
+##*tambien puede ser*
+
+```{r}
+barplot(height=sort(avg_full$likes, decreasing = TRUE),names=sort(avg_full$sentimiento, decreasing= TRUE), las=2, ylim=c(0, 2500), main ="likes por sentimiento para la palabra más repetida", col="grey", ylab="total de likes")
+```
+
+
+
+# **5.Función summary para ver el resumen estadistico**
+```{r}
+summary(ftr_alegria_clean$likes)
+```
+
+# **Tip: para ver la distribución aplicar funcion hist(x)** o **qqnorm(x)** o **boxplot(x)**
+# **TIP2: qqline(x) para trazar una linea entre primer y tercer cuartil, para juzgar lo goodness of fit del qq plot**
+
+# **6.Para exportar la data a excel, aplico**
+##*write_xlsx(ftr_alegria_clean, ftr_alegria_clean.xlsx)*
+###*antes debo instalar y cargar a libreria*
+install.packages("writexl")
+library("writexl")
 
 
