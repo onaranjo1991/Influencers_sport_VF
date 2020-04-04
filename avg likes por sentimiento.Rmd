@@ -252,4 +252,4 @@ summary(ftr_alegria_clean$likes)
 install.packages("writexl")
 library("writexl")
 
-
+ff
