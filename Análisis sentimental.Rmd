@@ -40,11 +40,42 @@ scores_chart<-sentimiento%>%
   filter(!grepl("positivo|negativo", sentiment))%>%
   count(sentiment)
 ```
+##**4.a.si quiero hacer grafico por usuario**
+###*agrego en count el nombre de la columna, en este caso Usuario* 
+###*además agregas filter para filtrar por usuario requerido"
+```{r}
+scores_chart_usuario<-sentimiento%>%
+  inner_join(NRC_es, by=c("word"="word"))%>%
+  filter(!grepl("positivo|negativo", sentiment))%>%
+  count(sentiment, Usuario)%>%
+  filter(str_detect(Usuario, "aethosheadcoach"))
+```
+
+**genero cad usuario por separado **
+scores_chart_try<-sentimiento%>%
+  inner_join(NRC_es, by=c("word"="word"))%>%
+  filter(!grepl("positivo|negativo", sentiment))%>%
+  count(sentiment, Usuario)%>%
+  filter(str_detect(Usuario, "the_runaddict"))
+
+**y despues los juntos todos**
+scores_full<-scores_chart_usuario%>%
+  full_join(scores_chart_try, by=c("sentiment"="sentiment"))
+
+Cambio el nombre de las columnas para que las leyendas se entienda = colnames(scores_full)<-c("sentiment", "aethos", "aethos_n")
+
+chartJSRadar(scores_full)
+
 
 #**5.Genero chart radar**
 ##*este chart radar plotea los sentimientos*
 ```{r}
 chartJSRadar(scores_chart)
+```
+
+#**5.a.Para generar el chart radar de cada usuario**
+```{r}
+chartJSRadar(scores_chart_usuario, main="Sentimientos aethosheadcoach", showLegend=FALSE, labelSize = 15)
 ```
 
 #**6.genero scores_cloud**

@@ -2,7 +2,9 @@
 title: "Influencers & Deporte"
 author: "Oscar Naranjo"
 date: "12/3/2020"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
 ---
 #**Importar, limpiar data y prepara data para su uso**
 
