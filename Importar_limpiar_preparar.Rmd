@@ -13,11 +13,11 @@ output:
 
 # 1.Importar la data
 ```{r}
-Data_scr <- read.csv("/cloud/project/Scrapped data Final.csv", sep=";", stringsAsFactors=FALSE)
+Data_scr <- read.csv("/cloud/project/scrapped data a usar vf.csv", sep=";", stringsAsFactors=FALSE)
 ```
 
 # 2.Instalar los paquetes a usar
-```{r}
+```{r, include=FALSE}
 install.packages("tidyverse")
 install.packages("tidytext")
 install.packages("tm")
@@ -87,13 +87,12 @@ data_utk<-data%>%
 
 #**7.Llevar palabras a la raiz**
 
-```{r}
+```{r, include=FALSE}
 data_utk_stem<-stemDocument(data_utk$token,language="spanish")
 ```
 
 #**8.Completar palabras de 7**
-
-```{r}
+```{r, include=FALSE}
 data_utk_complete<-stemCompletion(data_utk_stem, data_utk$token, type="shortest")
 ```
 
@@ -164,6 +163,9 @@ data_df<-data_utk%>%
 ##*Despues de este proceso, puedo: desarrollar bag of words o analisis sentimental*
 ##*Aplico __str_subset__ si deseo buscar donde hay frases con una palabra exacta, ejemplo: str_subset(data_df$caption, pattern = fixed("mucha"))* 
 ##*aplico la siguiente formula para generar nuevo tibble que solo me muestre la data de acuerdo a la palabra por la cual filtro*
+
+###*en este caso separo por la palabra con mayor freciencia*
+```{r}
 filter_alegria<-data_df%>%
     select(Usuario, Likes, linea, caption) %>%   
     filter(str_detect(caption, "mejor"))
@@ -195,4 +197,6 @@ filter_sorpresa<-data_df%>%
 filter_tristeza<-data_df%>%
     select(Usuario, Likes, linea, caption) %>%   
     filter(str_detect(caption, "dolor"))
+```
+
     
